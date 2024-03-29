@@ -1,0 +1,77 @@
+.pop-registration {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.714);
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  
+  .user-registration {
+    width: 30%;
+  
+    background-color: white;
+    padding: 2rem;
+  }
+  
+  .user-registration div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .user-registration div > label {
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+  h1{
+    text-align: center;
+    font-size:xx-large;
+    margin: 0.5rem 0;
+  }
+  .user-registration div > input {
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid black;
+  }
+  .user-registration div > input:focus {
+    border-bottom: 2px dashed green;
+  }
+  .buttons{
+    display: flex;
+  }
+  .btn {
+    width: 20%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 0;
+    cursor: pointer;
+    /* x-axis y-axis blur scale color */
+    transition-property: box-shadow;
+    transition-duration: 0.5s;
+  }
+  
+  .btn-success {
+    box-shadow: 0 0 5px 0 green;
+  }
+  
+  .btn-danger {
+    box-shadow: 0 0 5px 0 red;
+  }
+  
+  .btn-success:hover {
+    box-shadow: 0 0 5px 2px green;
+  }
+  
+  .btn-danger:hover {
+    box-shadow: 0 0 5px 2px red;
+  }
+  
+  .d-none {
+    display: none !important;
+  }
