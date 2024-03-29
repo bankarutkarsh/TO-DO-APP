@@ -1,71 +1,87 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InputIcon from "@mui/icons-material/Input";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CancelIcon from "@mui/icons-material/Cancel";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { setDone, setForm, setGone, setProg, settodo } from "../redux/todo.slice";
+import { setEdit, setForm } from "../redux/todo.slice";
+import axios from "axios";
 
 function Listitem({ but }) {
-  let dispatch = useDispatch();
-  let { todo,prog,Gone,Done, form } = useSelector((state) => state.todo);
-
+  const dispatch = useDispatch();
+  const { form, edit } = useSelector((state) => state.todo);
+  const [sec, setSec] = useState([]);
+  const target =
+        but === "To Do"
+          ? "todo"
+          : but === "In Progress"
+          ? "progress"
+          : but;
   useEffect(() => {
     async function fetchTasks() {
-      const target =
-        but.value === "To Do"
-          ? "todo"
-          : but.value === "In Progress"
-          ? "progress"
-          : but.value;
+      
       const res = await axios.get(`http://localhost:3004/${target}`);
-      but.value === 'To Do' ? (dispatch(settodo(res.data))) :  but.value === 'In Progress' ? (dispatch(setProg(res.data))) : but.value === 'Gone' ? (dispatch(setGone(res.data))) : (dispatch(setDone(res.data)))
-      console.log(todo,prog,Gone,Done)
+      const data = res.data;
+      setSec(data);
+      console.log("Rendering")
     }
 
     fetchTasks();
-  }, [dispatch]);
+  }, []);
+  
+  useEffect(()=>{
+    console.log(edit);
+  },[sec])
 
+  const deleteItem = async (i) => {
+    await axios.delete(`http://localhost:3004/${target}/${i.id}`)
+  }
 
+  const move = async (i) => {
+    let res = await axios.delete(`http://localhost:3004/${target}/${i.id}`)
+    await axios.post("http://localhost:3004/progress",res.data)
+  }
 
-  //   const progress = async (i) => {
-  //     await axios.post("http://localhost:3004/progress", i);
-  //   };
+  const gone = async (i) => {
+    let res = await axios.delete(`http://localhost:3004/${target}/${i.id}`)
+    await axios.post("http://localhost:3004/Gone",res.data)
+  }
+
+  const done = async (i) => {
+    let res = await axios.delete(`http://localhost:3004/${target}/${i.id}`)
+    await axios.post("http://localhost:3004/Done",res.data)
+  }
 
   return (
-    <div>
-
-    </div>
-  );
-}
-
-export default Listitem;
-{/* <>
+    <>
       {sec.map((i) => (
         <li key={i.id} className="dd-item" data-id={1}>
           <h3 className="title dd-handle">{i.task}</h3>
           <div className="text">{i.description}</div>
-          {but.value !== "Done" && but.value !== "Gone" && (
+          {but !== "Done" && but !== "Gone" && (
             <div className="actions">
               <i
-                onClick={() => dispatch(setForm(!form))}
+                onClick={() => {dispatch(setForm(!form)); dispatch(setEdit(i))}}
                 className="material-icons"
               >
                 <EditIcon />
               </i>
-              <i className="material-icons">
+              <i onClick={()=> deleteItem(i)} className="material-icons">
                 <DeleteIcon />
               </i>
               <i className="material-icons">
-                {but.value === "To Do" ? <InputIcon /> : <CheckBoxIcon />}
+                {but === "To Do" ? <InputIcon onClick={()=> move(i)} /> : <CheckBoxIcon onClick={()=> done(i)} />}
               </i>
               <i className="material-icons">
-                <CancelIcon />
+                <CancelIcon onClick={()=> gone(i)} />
               </i>
             </div>
           )}
         </li>
       ))}
-    </> */}
+    </>
+  );
+}
+
+export default Listitem;

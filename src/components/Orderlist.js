@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Listitem from "./Listitem";
 import BuildIcon from "@mui/icons-material/Build";
 import AddTaskIcon from "@mui/icons-material/AddTask";
@@ -13,6 +13,10 @@ import { setForm } from "../redux/todo.slice";
 function Orderlist({ section }) {
   let dispatch = useDispatch();
   let { form } = useSelector((state) => state.todo);
+
+  useEffect(()=>{
+    console.log("section changed")
+  },[section])
 
   return (
     <>
@@ -33,7 +37,7 @@ function Orderlist({ section }) {
             {" " + section.name}
           </h2>
         </div>
-        <Listitem but={{ value: section.name }} />
+        <Listitem but={section.name} />
         {section.name === "To Do" && (
           <div className="actions">
             <button className="addbutt" onClick={() => dispatch(setForm(!form))}>

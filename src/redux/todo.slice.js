@@ -5,30 +5,19 @@ const todoSlice = createSlice({
     name: "todoSlice",
     initialState: {
         form: false,
-        todo: [],
-        prog: [],
-        Gone: [],
-        Done: [],
+        edit:undefined,
+        sec: [],
     },
     reducers: {
         setForm(state,action){
             state.form = action.payload;
         },
-        settodo(state,action){
-            state.todo = action.payload
-        },
-        setProg(state,action){
-            state.prog = action.payload
-        },
-        setGone(state,action){
-            state.Gone = action.payload
-        },
-        setDone(state,action){
-            state.Done = action.payload
+        setEdit(state,action){
+            state.edit = action.payload;
         },
     }
 });
 
 export default todoSlice;
 
-export const {settodo,setForm,setDone,setGone,setProg} = todoSlice.actions;
+export const {setForm,setEdit} = todoSlice.actions;

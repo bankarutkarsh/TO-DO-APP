@@ -1,15 +1,15 @@
 import axios from "axios";
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setForm } from "../redux/todo.slice";
+import { setEdit, setForm } from "../redux/todo.slice";
 
 function Taskform() {
   let dispatch = useDispatch();
-  let { form } = useSelector((state) => state.todo);
+  let { form, edit } = useSelector((state) => state.todo);
   let task = useRef(null);
   let description = useRef(null);
 
-  function saveTask() {
+  async function saveTask() {
     let newTask = {
       task: task.current.value,
       description: description.current.value,
@@ -17,7 +17,11 @@ function Taskform() {
     if (newTask.task === "" || newTask.description === "") {
       alert("Enter a valid task");
     } else {
-      axios.post("http://localhost:3004/todo", newTask);
+      if (edit === undefined || edit === "") {
+        await axios.post("http://localhost:3004/todo", newTask);
+      } else {
+        await axios.put(`http://localhost:3004/todo/${edit.id}`, newTask);
+      }
     }
   }
 
@@ -33,6 +37,7 @@ function Taskform() {
               type="text"
               id="taskName"
               placeholder="Enter name of Task"
+              defaultValue={edit !== undefined ? edit.task : undefined}
               required
             />
           </div>
@@ -42,7 +47,8 @@ function Taskform() {
               ref={description}
               type="text"
               id="description"
-              placeholder="Enter Your Description"
+              placeholder="Enter task description"
+              defaultValue={edit !== undefined ? edit.description : undefined}
               required
             />
           </div>
@@ -59,7 +65,10 @@ function Taskform() {
               Save
             </button>
             <button
-              onClick={() => dispatch(setForm(!form))}
+              onClick={() => {
+                dispatch(setForm(!form));
+                dispatch(setEdit(""));
+              }}
               type="button"
               className="cancel btn btn-danger"
             >
