@@ -12,11 +12,11 @@ import { setForm } from "../redux/todo.slice";
 
 function Orderlist({ section }) {
   let dispatch = useDispatch();
-  let { form } = useSelector((state) => state.todo);
+  let { form, sec } = useSelector((state) => state.todo);
 
-  useEffect(()=>{
-    console.log("section changed")
-  },[section])
+  useEffect(() => {
+    console.log("section changed");
+  }, [sec]);
 
   return (
     <>
@@ -40,7 +40,10 @@ function Orderlist({ section }) {
         <Listitem but={section.name} />
         {section.name === "To Do" && (
           <div className="actions">
-            <button className="addbutt" onClick={() => dispatch(setForm(!form))}>
+            <button
+              className="addbutt"
+              onClick={() => dispatch(setForm(!form))}
+            >
               Add new{" "}
               <i className="material-icons">
                 <ControlPointIcon />

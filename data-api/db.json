@@ -1,16 +1,38 @@
 {
-  "todo": [],
-  "progress": [],
-  "Done": [
-    {
-      "id": "3431",
-      "task": "Completed task",
-      "description": "Do Morning Walk"
-    },
+  "todo": [
     {
       "id": "26f8",
       "task": "Complete Task",
       "description": "Complete an assignment of creating a react app"
+    },
+    {
+      "id": "c284",
+      "task": "Test App",
+      "description": "Test the app works properly"
+    }
+  ],
+  "progress": [
+    {
+      "id": "cd72",
+      "task": "New Task",
+      "description": "Learn React"
+    }
+  ],
+  "Done": [
+    {
+      "id": "70bb",
+      "task": "Completed task",
+      "description": "Go on Morning Walk"
+    },
+    {
+      "id": "f4fe",
+      "task": "Create a post for LinkedIn",
+      "description": "Display your new project"
+    },
+    {
+      "id": "70bb",
+      "task": "Completed task",
+      "description": "Go on Morning Walk"
     }
   ],
   "Gone": [

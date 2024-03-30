@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setEdit, setForm } from "../redux/todo.slice";
+import { setChange, setEdit, setForm } from "../redux/todo.slice";
 
 function Taskform() {
   let dispatch = useDispatch();
@@ -20,7 +20,19 @@ function Taskform() {
       if (edit === undefined || edit === "") {
         await axios.post("http://localhost:3004/todo", newTask);
       } else {
-        await axios.put(`http://localhost:3004/todo/${edit.id}`, newTask);
+        try {
+          await axios.put(`http://localhost:3004/todo/${edit.id}`, newTask);
+        } catch (error) {
+          try {
+            await axios.put(
+              `http://localhost:3004/progress/${edit.id}`,
+              newTask
+            );
+            dispatch(setChange(1));
+          } catch (err) {
+            console.log(err);
+          }
+        }
       }
     }
   }
@@ -31,24 +43,28 @@ function Taskform() {
         <form action="#">
           <h1>Add Task</h1>
           <div>
-            <label htmlFor="">Task Name</label>
+            <label htmlFor="taskName">Task Name</label>
             <input
               ref={task}
               type="text"
               id="taskName"
               placeholder="Enter name of Task"
-              defaultValue={edit !== undefined ? edit.task : undefined}
+              defaultValue={
+                edit !== undefined && edit !== "" ? edit.task : undefined
+              }
               required
             />
           </div>
           <div>
-            <label htmlFor="">Description</label>
+            <label htmlFor="description">Description</label>
             <input
               ref={description}
               type="text"
               id="description"
               placeholder="Enter task description"
-              defaultValue={edit !== undefined ? edit.description : undefined}
+              defaultValue={
+                edit !== undefined && edit !== "" ? edit.description : undefined
+              }
               required
             />
           </div>
@@ -56,6 +72,7 @@ function Taskform() {
             <button
               onClick={() => {
                 saveTask();
+                dispatch(setChange(1));
                 dispatch(setForm(!form));
               }}
               type="button"
