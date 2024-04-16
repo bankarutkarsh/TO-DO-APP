@@ -18,14 +18,14 @@ function Taskform() {
       alert("Enter a valid task");
     } else {
       if (edit === undefined || edit === "") {
-        await axios.post("http://localhost:3004/todo", newTask);
+        await axios.post("https://todo-json-server-ivory.vercel.app/todo", newTask);
       } else {
         try {
-          await axios.put(`http://localhost:3004/todo/${edit.id}`, newTask);
+          await axios.put(`https://todo-json-server-ivory.vercel.app/todo/${edit.id}`, newTask);
         } catch (error) {
           try {
             await axios.put(
-              `http://localhost:3004/progress/${edit.id}`,
+              `https://todo-json-server-ivory.vercel.app/progress/${edit.id}`,
               newTask
             );
             dispatch(setChange(1));
