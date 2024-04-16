@@ -25,7 +25,7 @@ function Listitem({ but }) {
     but === "To Do" ? "todo" : but === "In Progress" ? "progress" : but;
   useEffect(() => {
     async function fetchTasks() {
-      const res = await axios.get(`https://todo-json-server-ivory.vercel.app/${target}`);
+      const res = await axios.get(`https://json-server-todo-80lb.onrender.com/${target}`);
       const data = res.data;
       but === "To Do"
         ? dispatch(setSec(data))
@@ -41,25 +41,25 @@ function Listitem({ but }) {
   }, [change]);
 
   const deleteItem = async (i) => {
-    await axios.delete(`https://todo-json-server-ivory.vercel.app/${target}/${i.id}`);
+    await axios.delete(`https://json-server-todo-80lb.onrender.com/${target}/${i.id}`);
     dispatch(setChange(1));
   };
 
   const move = async (i) => {
-    let res = await axios.delete(`https://todo-json-server-ivory.vercel.app/${target}/${i.id}`);
-    await axios.post("https://todo-json-server-ivory.vercel.app/progress", res.data);
+    let res = await axios.delete(`https://json-server-todo-80lb.onrender.com/${target}/${i.id}`);
+    await axios.post("https://json-server-todo-80lb.onrender.com/progress", res.data);
     dispatch(setChange(1));
   };
 
   const gone = async (i) => {
-    let res = await axios.delete(`https://todo-json-server-ivory.vercel.app/${target}/${i.id}`);
-    await axios.post("https://todo-json-server-ivory.vercel.app/Gone", res.data);
+    let res = await axios.delete(`https://json-server-todo-80lb.onrender.com/${target}/${i.id}`);
+    await axios.post("https://json-server-todo-80lb.onrender.com/Gone", res.data);
     dispatch(setChange(1));
   };
 
   const done = async (i) => {
-    let res = await axios.delete(`https://todo-json-server-ivory.vercel.app/${target}/${i.id}`);
-    await axios.post("https://todo-json-server-ivory.vercel.app/Done", res.data);
+    let res = await axios.delete(`https://json-server-todo-80lb.onrender.com/${target}/${i.id}`);
+    await axios.post("https://json-server-todo-80lb.onrender.com/Done", res.data);
     dispatch(setChange(1));
   };
 
