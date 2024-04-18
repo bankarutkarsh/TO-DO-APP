@@ -21,11 +21,11 @@ function Taskform() {
         await axios.post("https://todo-backend-umber.vercel.app/todo", newTask);
       } else {
         try {
-          await axios.put(`https://todo-backend-umber.vercel.app/todo/${edit.id}`, newTask);
+          await axios.put(`https://todo-backend-umber.vercel.app/todo/${edit._id}`, newTask);
         } catch (error) {
           try {
             await axios.put(
-              `https://todo-backend-umber.vercel.app/progress/${edit.id}`,
+              `https://todo-backend-umber.vercel.app/progress/${edit._id}`,
               newTask
             );
             dispatch(setChange(1));
