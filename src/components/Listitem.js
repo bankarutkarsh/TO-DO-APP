@@ -41,24 +41,24 @@ function Listitem({ but }) {
   }, [change]);
 
   const deleteItem = async (i) => {
-    await axios.delete(`https://todo-backend-umber.vercel.app/${target}/${i.id}`);
+    await axios.delete(`https://todo-backend-umber.vercel.app/${target}/${i._id}`);
     dispatch(setChange(1));
   };
 
   const move = async (i) => {
-    let res = await axios.delete(`https://todo-backend-umber.vercel.app/${target}/${i.id}`);
+    let res = await axios.delete(`https://todo-backend-umber.vercel.app/${target}/${i._id}`);
     await axios.post("https://todo-backend-umber.vercel.app/progress", res.data);
     dispatch(setChange(1));
   };
 
   const gone = async (i) => {
-    let res = await axios.delete(`https://todo-backend-umber.vercel.app/${target}/${i.id}`);
+    let res = await axios.delete(`https://todo-backend-umber.vercel.app/${target}/${i._id}`);
     await axios.post("https://todo-backend-umber.vercel.app/Gone", res.data);
     dispatch(setChange(1));
   };
 
   const done = async (i) => {
-    let res = await axios.delete(`https://todo-backend-umber.vercel.app/${target}/${i.id}`);
+    let res = await axios.delete(`https://todo-backend-umber.vercel.app/${target}/${i._id}`);
     await axios.post("https://todo-backend-umber.vercel.app/Done", res.data);
     dispatch(setChange(1));
   };
