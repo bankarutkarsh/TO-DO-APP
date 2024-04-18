@@ -18,14 +18,14 @@ function Taskform() {
       alert("Enter a valid task");
     } else {
       if (edit === undefined || edit === "") {
-        await axios.post("https://json-server-todo-80lb.onrender.com/todo", newTask);
+        await axios.post("https://todo-backend-umber.vercel.app/todo", newTask);
       } else {
         try {
-          await axios.put(`https://json-server-todo-80lb.onrender.com/todo/${edit.id}`, newTask);
+          await axios.put(`https://todo-backend-umber.vercel.app/todo/${edit.id}`, newTask);
         } catch (error) {
           try {
             await axios.put(
-              `https://json-server-todo-80lb.onrender.com/progress/${edit.id}`,
+              `https://todo-backend-umber.vercel.app/progress/${edit.id}`,
               newTask
             );
             dispatch(setChange(1));
